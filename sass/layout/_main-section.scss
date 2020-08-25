@@ -1,0 +1,33 @@
+section,
+main {
+  height: 100vh;
+  @include flexCenter();
+  scroll-snap-align: center;
+}
+.portfolio {
+  background-color: rgb(235, 121, 121);
+}
+
+.resume {
+  background-color: rgb(26, 26, 92);
+}
+
+.about {
+  background-color: rgb(38, 134, 38);
+}
+
+.testimonial {
+  background-color: rgb(235, 121, 121);
+}
+
+.service {
+  background-color: rgb(26, 26, 92);
+}
+
+.blog {
+  background-color: rgb(38, 134, 38);
+}
+
+.contact {
+  background-color: rgb(235, 121, 121);
+}
