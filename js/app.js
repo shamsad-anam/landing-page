@@ -1,16 +1,16 @@
-const navLink = document.querySelectorAll(".nav-link");
+//toggle active class with click -- don't need if using bootstrap scrollspy
+//const navLink = document.querySelectorAll(".nav-link");
+// navLink.forEach((item) => {
+//   item.addEventListener("click", (e) => {
+//     let currentActive = document.querySelector(".nav-link.active");
+//     currentActive.classList.remove("active");
+//     e.target.classList.add("active");
 
-navLink.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    let currentActive = document.querySelector(".nav-item.active");
-    currentActive.classList.remove("active");
-    e.target.parentElement.classList.add("active");
+//     let sectionId = e.target.getAttribute("href");
 
-    let sectionId = e.target.getAttribute("href");
-
-    // smoothScroll(sectionId, 1500);
-  });
-});
+//     // smoothScroll(sectionId, 1500);
+//   });
+// });
 
 // jQuery Smooth Scroll
 // $(".navbar a").on("click", function (e) {
@@ -31,7 +31,14 @@ navLink.forEach((item) => {
 //Smoothscroll -- GitHub
 let scroll = new SmoothScroll('.navbar a[href*="#"]', {
   speed: 800,
+  emitEvents: true,
 });
+
+document.addEventListener(
+  "scrollStart",
+  () => console.log("scroll started"),
+  false
+);
 
 // Smooth Scrolling Function --DevEd -- Not working properly
 function smoothScroll(target, duration) {
@@ -62,3 +69,20 @@ function smoothScroll(target, duration) {
   //requset for 60fps animation
   requestAnimationFrame(animationScroll);
 }
+
+//scrollspy Bootstrap
+// .scrollspy('dispose')
+const navLink = document.querySelectorAll(".nav-link");
+navLink.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    $('[data-spy="scroll"]').each(function () {
+      $(this).scrollspy("dispose");
+    });
+  });
+});
+
+window.onscroll = function (e) {
+  $('[data-spy="scroll"]').each(function () {
+    $(this).scrollspy("refresh");
+  });
+};
