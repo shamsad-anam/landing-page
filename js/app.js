@@ -34,9 +34,29 @@ let scroll = new SmoothScroll('.navbar a[href*="#"]', {
   emitEvents: true,
 });
 
+/* these eventlisteners are needed if you don't want smooth scroll to add active class to each nav-link
+ ** while the window is scrolling to the clicked section -- Smoothscroll
+ */
+
+//this event fires when srooll animation is started and stops the scrollspy
 document.addEventListener(
   "scrollStart",
-  () => console.log("scroll started"),
+  () => {
+    $('[data-spy="scroll"]').each(function () {
+      $(this).scrollspy("dispose");
+    });
+  },
+  false
+);
+
+//this event fires when scroll animation is stopped and starts the scrollspy again
+document.addEventListener(
+  "scrollStop",
+  () => {
+    $('[data-spy="scroll"]').each(function () {
+      $(this).scrollspy("refresh");
+    });
+  },
   false
 );
 
@@ -69,20 +89,3 @@ function smoothScroll(target, duration) {
   //requset for 60fps animation
   requestAnimationFrame(animationScroll);
 }
-
-//scrollspy Bootstrap
-// .scrollspy('dispose')
-const navLink = document.querySelectorAll(".nav-link");
-navLink.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    $('[data-spy="scroll"]').each(function () {
-      $(this).scrollspy("dispose");
-    });
-  });
-});
-
-window.onscroll = function (e) {
-  $('[data-spy="scroll"]').each(function () {
-    $(this).scrollspy("refresh");
-  });
-};
